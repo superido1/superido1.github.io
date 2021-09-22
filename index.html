@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>上外贸周边美食在线抽奖</title>
+<script src="https://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<style>
+body {
+	background-color:#F2CA76;
+}
+.title{
+	width: 1150px;max-width: 1200px;height: 170px; 
+    text-align: center;font-size: 40px;
+	margin: 0 auto;width: 100%;}
+.wrapDiv {
+    width: 1150px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 179px;
+    left: 26px;
+    right: 0;
+    height: 465px;
+}
+.leftBox {
+	float:left;
+	width:600px;
+	height:300px;
+	/*background-color:aqua;
+	*/
+    	margin:0 auto;
+	margin-top:0px;
+	clear:both;
+}
+.middleBox {
+	float:left;
+	width:100px;
+	height:300px;
+	/*background-color:aqua;
+	*/
+    	margin:0 auto;
+	margin-top:0px;
+	
+}
+#span {
+	float:right;
+	top:40px;
+	right:185px;
+}
+#btn {
+	float:left;
+	width:100px;
+	height:40px;
+	margin-left:10px;
+	margin-top:150px;
+	font-size: 17px;
+}
+#btn2 {
+	float:left;
+	width:100px;
+	height:40px;
+	margin-left:10px;
+	margin-top:180px;
+	font-size: 17px;
+}
+.nameBox {
+	width:85px;
+	height:55px;
+	float:left;
+	background-color:antiquewhite;
+	margin-left:10px;
+	margin-top:10px;
+	text-align:center;
+	font-size: 13px;
+	line-height:18px;
+	border-radius: 5px;
+}
+.selectedNametitle {
+	float:right;
+	width:400px;
+	background:#666;
+	margin-top:10px;
+	margin-left:40px;
+	background:#ffffff;
+	overflow:hidden;
+	border-top-left-radius:15px;
+	border-top-right-radius:15px;
+		
+}
+.selectedName {
+	float:right;
+	width:400px;
+	background:#666;
+	margin-left:40px;
+	background:#ffffff;
+	overflow:hidden;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+h1 {
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="title">
+  <h1>今天吃什么?</h1></div>
+<span id="span"></span>
+
+<div class="wrapDiv">
+  <div id="leftBox" class="leftBox"></div>
+  <div id="middleBox" class="middleBox">
+	<input type="button" id="btn" value="开始抽奖"><input type="button" id="btn2" value="重置" onclick="javascript:document.getElementById('selectedName').innerHTML=''">
+	</div>
+  <div id="selectedNametitle" class="selectedNametitle">
+    <h1>备选餐厅</h1>
+  </div>
+  <div id="selectedName" class="selectedName">
+  </div>
+</div>
+<script>
+ // 模拟后台数据
+ var arr = ['赣南粉局·江西锅气炒米粉(松江大学城店)', '子固路老南昌拌粉(松江大学城店)', 'Lesvila花园餐厅(二期店)', '喀布狸·日本料理', '金牛角牛排馆', '川錦汇自选麻辣拌(二期店)', '文火屋', '甜甜咖菲猫·猫咪咖啡馆·(大学城店)', '红跑车(大学城店)', '李先生的首尔小馆(松江二店)', '恩记•特色炸酥肉', '暖纪(河滨店)', '茶百道(松江大学城二店)', '北乡缘餐馆(文汇路店)', '图门烧烤(松江大学城店)', '肥猫烤鱼(松江大学城店)', '淡淡卷手工蛋卷(大学城二期店)', '来一碗·重庆豌杂面(大学城二期店)', '图门串烤(文汇路店)', '茉酸奶(文汇路店)', '许记手工面(二期店)', '满分甜羊乳茶(松江大学城店)', '牛石釜烤肉锅物料理', '茉酸奶(江桥万达店)', '蜜雪冰城(文汇路店)', '小杨生煎(松江大学城店)', '梁仔炸串·拌饼(松江大学城店)', '意味披萨', '熟了•烧烤夜宵', '徽州菜馆', '星座(文汇路店)', '星巴克(松江文汇路店)', 'NOWWA挪瓦咖啡(文汇路店)', '巷子面(文汇路东店)', '遇见燔烤屋', '薄暮甜品', '澳门牛杂(松江大学城店)', '麦兜饭宝·中日式米饭类主食', '炸创(松江区大学城店)', '糖水粥铺', '7分甜(松江大学城二店)', '川菜韵味(松江大学城店)', '江湖碳烤鱼', '上海对外经贸大学松江校区食堂', '手工卤肉卷饼', 'DADAK达达客热狗店(松江大学城一号店)', '面香源(松江大学城二期店)', '涛哥梅干菜扣肉饼(桌翔美食城店)', '秦人米线(松江一店)', '李记煎饼(文汇路店)', '阿康烧烤(大学城二期店)', '牛诗诗现烤蛋糕(文汇路二店)', 'luckincoffee瑞幸咖啡(东华大学文汇路店)', '和气桃桃(松江大学城店)', 'the Frypan韩国炸鸡啤酒(松江大学城店)', '低卡情报局·轻食', '米乃家', '面包大叔(文汇路二店)', '吉祥馄饨(文汇路店)', '汆悦麻辣烫(松江大学城店)', '松阪料理店', '1点点(松江大学城店)', '浅奈•日式咖喱蛋包饭(旺万美食城店)', 'three-吐司(启源广场店)', '郑阿姨温州糯米饭', '卞嵊记老味道鸡柳年糕(旺万美食城店)', '上海对外经贸大学学生餐厅', 'SISU星体咖啡', '海猫食堂', '兴记老上海馄饨铺(淘点点美食广场店)', '哆啦爱檬柠檬炸鸡&啤酒', '对外经贸大学二食堂', '肚子里有料(松江大学城店)', '曼顿果汁吧(口碑美食广场店)', '一品快餐(良田美食广场店)', '白鹿秋', '万家灯火(文汇路店)', '厝内小眷村(松江文汇店)', '口碑 | 美食广场', '西北穆斯林美食(文汇路店)', 'R&B珍奶会所(大学城二期店)', '一鸣真鲜奶吧', '文汇141咖啡厅', '桂林米粉(旺万美食城店)', '雄逗逗老长沙臭豆腐', '饼小六香酥鸡烧饼(文汇路店)', 'McCafé 麦咖啡', '温州炒粉干(森场美食城店)', '莉莲蛋挞(松江大学城二店)', 'LIZ-CAKE DIY甜品烘焙', '喝汤时间(松江大学城店)', '兴记老上海馄饨(文汇路店)', '缙云烧饼屋(小食代美食广场店)', '张亮麻辣烫(大学城文汇路店)', '全家便利店(文汇路四店)', '淮南牛肉汤', '小成都•藤椒鸡(二期店)', '鲜果汇', '酱香饼', '鸡腿大侠', '木尾咖啡', '东北大串', '美味集结号', '金百合水果大卖场(大学城二期店)', '红枣坊', '小懒丫脆皮玉米Ami寿司', '曼玲粥店(文汇路店)', 'P+SA粉屋(大学城店)', '徽州铁板烧(文汇路店)', '非凡煮功拌饭', '光明面馆(旺万美食城店)', '寻茶说', '小小螺·螺蛳粉(小食代美食广场大学城店)', '翰莘美食城', '思源餐厅', 'BEING伴咖啡', '逍遥八珍胡辣汤(松江大学城店)', '米村铁板厨房(旺万美食城店)', '中原郎烧烤店(二期店)', '江南蒸菜(翰莘美食广场店)', '蛋糕叔叔', '珍味轩鲍鱼捞饭', '特色炒饭(翰莘美食广场店)', 'Pho mint越式柠粉', '秋林阁铁板炒饭', '美甜益焗', '焦耳·川式快餐(大学城店)', '好货淘淘咖啡馆', '鲜时代希腊酸奶工坊(大学城店)', '鑫龙福麻辣香锅', '咸蛋黄牛油拌饭', '我家牛排饭(口碑美食广场店)', '麻辣香锅', 'E68烤肉饭(第四档口店)', '秋林阁家常小炒', '筱味熊沙拉煎饼·烤冷面(松江大学城店)', '湘味小碗菜', '？？？面馆', '里小约巴西烤肉咖喱饭', '鑫旺盖浇饭(寻味美食城)', '澳门牛杂藤椒鸡(旺万美食城店)', '巴比馒头(文汇路三店)', '王氏汤包馆·老鸭汤(旺万美食城店)', '台湾粢饭', '人在茶在(松江大学店)', '古树咖啡(外经贸大学店)', '重庆夫妻面馆(旺万美食城店)', '炒饭宝典', '山城渝味•重庆小面', 'bingo冰粉', '美味盖浇饭(淘点点美食广场店)', '蒸蒸好', '寿吖Ami Sushi', '烧腊小铺(旺万美食城店)', '劲爪皇', '如意馄饨(经贸大学店)', '手工面坊', '灰太狼网红炸串', '汤倍鲜米粉', '美味古城', '千里香馄饨王(第三档口店)', 'luckin coffee瑞幸咖啡', '奔跑的小辣椒冒菜(翰莘店)', '陕一绝(旺万店)', '淮王献豆浆夜市粤厨', '仙果缘', '锅将军柴火羊汤', '菜香园中式快餐', '蒋阿姨杂粮煎饼(翰莘美食城店)', '一面源(大学城二期店)', '刘记红烧肉饭', 'SMALL STEAK 原切外带牛排', '奈良小鹿·精致便当(松江大学城店)', '追妹小鸡手工炸鸡(翰莘美食城店)', 'Carmiche现烤汉堡(文汇店)', '广式烧腊', '陆湘长沙臭豆腐(文汇路店)', '小红帽蛙锅(旺万美食城店)', '煎饼来了(文汇路店)', '龙门花甲', '快乐星汉堡(文汇路店)', '巷子里鸡柳年糕', '皖小锅地锅鸡(小时代美食城店)', '炒范世家', '嗲茶(松江大学城店)', '辣舞·WAWA鱼', '鸭来哒', '悸动烧仙草(大学城二期店)', '山东煎饼', '昊袀面馆', '公主番茄鱼', 'MARIO韩国炸鸡', '八喜冰牛奶冰激凌蛋糕', '福记•潮汕烧腊(二期四期送楼下店)', '曼玲粥店(松江大学城店)', '农夫烧菜', '百味砂锅', '面对面(文汇店)', '煎饼侠', '一茶源', '澳门皇茶Macao Imperial Tea', '学生餐厅(松江大学城店)', '寻味黄焖鸡米饭', '煎爱煎饼', '比家香小碗菜', '福滋味手工水饺(桌翔美食城店)', '豆浆记忆', '马来一号(松江大学城旗舰店)', 'LIGHTHOUSE来好事', '黄山老冯菜饭骨头汤', '东一石锅拌饭(口碑美食广场)', '鱼小满', '范小虾网红龙虾饭', '营养早餐', '鲜果切水果捞', '肉惑老饭盒(旺万美食城店)', '香鸭粉', '丘比特芝士水果饼(文汇路店)', '酱新炸串(松江大学城店)', 'Kiss粥棚', '杰克叔叔(二期店)', '郡中蜀签', '乐普乐(大学城)', '卡麦奇汉堡', '酩暧美食旅游养生调理俱乐部', '学长炸鸡', '阿呆炒饭·猛火蛋炒饭(松江大学城店)', '摩尔曼斯克港蛋糕', '小牛炖牛肉烧饭', '沙拉自通', '味甄小厨', '大山情生活馆', '点点家水果(文汇店二期店)', '超食荟开心花甲粉', '老友记小锅米线', '闪现水果(旺万美食城店)', '四季龙虾(旺万美食城店)', '拌路老撕鸡•网红手撕鸡', '淮南牛肉汤', '老三手工水饺', '無贰小锅米线(二三四期送楼下店)', '彭城二妮', '一口香炸鸡汉堡(翰莘美食广场)', 'CoCo都可(上海松江大学城瀚莘店)', '特色自选套餐', '中式餐厅', '黄山菜饭', '鲜焰小铁板', '哈哈韩国炸鸡烤鸡(森场美食城店)', '板烧先生'];
+ var orgArrCount = arr.length;
+ var currentSelectNum = 0;
+
+ initForm();
+
+ // 初始化表单
+ function initForm() {
+     // 动态设置选择人的高度
+     var selectedNameHeight = orgArrCount / 5 * 40 + 120;
+     $("#selectedName").css("height", selectedNameHeight + "px");
+     // 动态创建图层
+     dynamicCreateBox();
+ }
+
+ // 动态创建层
+ function dynamicCreateBox() {
+     for (var i = 0; i < arr.length; i++) {
+         var div = document.createElement("div");
+         div.innerText = arr[i];
+         div.className = "nameBox";
+         $("#leftBox").append(div);
+     };
+ }
+
+ // 清空小方格颜色
+ function clearBoxColor() {
+     $("#leftBox").children("div").each(function() {
+         $(this).css("background-color", "");
+     });
+ }
+
+ // 设置选中小方格颜色
+ function setBoxColor() {
+     $("#leftBox").children("div").each(function() {
+         var thisText = ($(this).text());
+         var selectedName = arr[currentSelectNum];
+
+         if (thisText == selectedName) {
+             $(this).css("background-color", "red");
+         }
+     });
+ }
+
+ function appendSelectedName() {
+     var div = document.createElement("div");
+     div.innerText = arr[currentSelectNum];
+     div.className = "nameBox";
+     $("#selectedName").append(div);
+ }
+
+ $('#btn').click(function() {
+     var curentCount = arr.length;
+     if (curentCount < 1) {
+         alert("没有可选了");
+         // 清空所有层的颜色
+         clearBoxColor();
+         return;
+     }
+     // 监视按钮的状态
+     if (this.value === "开始抽奖") {
+		 $(this).css("background-color", "red");
+         // 定时针
+         timeId = setInterval(function() {
+             // 清空所有层的颜色
+             clearBoxColor();
+
+             //随机生成一个数
+             var num = Math.floor(Math.random() * curentCount);
+             currentSelectNum = num;
+
+             // 设置选中小方格颜色
+             setBoxColor();
+         }, 10);
+         this.value = "停止";
+     } else {
+         // 清除计时器
+         clearInterval(timeId);
+
+         // 添加选中人
+         appendSelectedName();
+
+         // 移除
+         arr.splice(currentSelectNum, 1);
+         this.value = "开始抽奖";
+		 $(this).css("background-color", "white");
+     }
+ });
+
+ // 获取时间的函数
+ getTime();
+ setInterval(getTime, 10)
+
+ function getTime() {
+     var day = new Date();
+     var year = day.getFullYear(); //年
+     var month = day.getMonth() + 1; //月
+     var dat = day.getDate(); //日
+     var hour = day.getHours(); //小时
+     var minitue = day.getMinutes(); //分钟
+     var second = day.getSeconds(); //秒
+     month = month < 10 ? "0" + month : month;
+     dat = dat < 10 ? "0" + dat : dat;
+     hour = hour < 10 ? "0" + hour : hour;
+     minitue = minitue < 10 ? "0" + minitue : minitue;
+     second = second < 10 ? "0" + second : second;
+     $("#span").innerText = year + "-" + month + "-" + dat + " " + hour + ":" + minitue + ":" + second
+ }
+</script>
+</body>
+</html>
+
