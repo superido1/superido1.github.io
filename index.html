@@ -18,9 +18,9 @@ body {
     margin: 0 auto;
     text-align: center;
     position: absolute;
-    top: 179px;
-    left: 26px;
-    right: 0;
+    top: 203px;
+    left: 28px;
+    right: 26px;
     height: 465px;
 }
 .leftBox {
@@ -99,20 +99,25 @@ body {
 	border-bottom-right-radius: 15px;
 }
 h1 {
-	text-align:center;
+	text-align:center;height: :250px;
 }
+.title1 {	width: 1150px;max-width: 1200px;height: 90px;font-size: 40px;
+	margin: 0 auto;width: 100%;
+	float:right;right:26px;text-align: right;left:70%}
 </style>
 </head>
 <body>
 <div class="title">
-  <h1>今天吃什么?</h1></div>
+<h1>今天吃什么?</h1>
+</div>
+<div class="title1"><img src="https://qr.api.cli.im/newqr/create?data=http%3A%2F%2Fqr61.cn%2Fojg6cJ%2FqO4slDJ&level=H&transparent=&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=2&logourl=&size=220&kid=cliim&time=1632401166&key=4efc117a1dadbf687b724bcf34ca483a" width="80" height="80" alt=""/></div>
 <span id="span"></span>
 
 <div class="wrapDiv">
   <div id="leftBox" class="leftBox"></div>
   <div id="middleBox" class="middleBox">
 	<input type="button" id="btn" value="开始抽奖"><input type="button" id="btn2" value="重置" onclick="javascript:document.getElementById('selectedName').innerHTML=''">
-	</div>
+  </div>
   <div id="selectedNametitle" class="selectedNametitle">
     <h1>备选餐厅</h1>
   </div>
